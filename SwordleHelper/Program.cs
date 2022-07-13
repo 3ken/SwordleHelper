@@ -12,20 +12,14 @@ var lettersNotInWord = !string.IsNullOrEmpty(lettersNotInWordInput) ? lettersNot
 var lettersInWord = !string.IsNullOrEmpty(lettersInWordInput) ? lettersInWordInput.ToCharArray() : Array.Empty<char>();
 var exactPosition = !string.IsNullOrEmpty(exactPositionInput) ? exactPositionInput.ToCharArray() : Array.Empty<char>();
 
-
 wordsList = lettersInWord.Aggregate(wordsList, (current, letterInWord) => current.Where(w => w.Contains(letterInWord)).ToArray());
 wordsList = lettersNotInWord.Aggregate(wordsList, (current, letterNotInWord) => current.Where(w => !w.Contains(letterNotInWord)).ToArray());
 
 var index = 0;
 foreach (var exactPositionChar in exactPosition)
 { 
-    if (!char.IsLetter(exactPositionChar))
-    {
-        index++;
-        continue;
-    }
-
-    wordsList = wordsList.Where(w => w.IndexOf(exactPositionChar) == index).ToArray();
+    if (char.IsLetter(exactPositionChar))
+        wordsList = wordsList.Where(w => w.IndexOf(exactPositionChar) == index).ToArray();
     index++;
 }
 Console.WriteLine("Suggestions: ");
