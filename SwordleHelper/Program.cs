@@ -22,14 +22,14 @@ var index = 0;
 foreach (var exactPositionChar in exactPosition)
 { 
     if (char.IsLetter(exactPositionChar))
-        wordsList = wordsList.Where(w => w.IndexOf(exactPositionChar) == index).ToArray();
+        wordsList = wordsList.Where(w => exactPositionChar == w[index]).ToArray();
     index++;
 }
 var index2 = 0;
 foreach (var exactNotPositionChar in exactNotPosition)
 { 
     if (char.IsLetter(exactNotPositionChar))
-        wordsList = wordsList.Where(w => w.IndexOf(exactNotPositionChar) != index2).ToArray();
+        wordsList = wordsList.Where(w => exactNotPositionChar != w[index2]).ToArray();
     index2++;
 }
 Console.WriteLine("Suggestions: ");
