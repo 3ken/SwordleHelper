@@ -7,10 +7,13 @@ Console.WriteLine("What letters is in the word?");
 var lettersInWordInput = Console.ReadLine();
 Console.WriteLine("What letters do you know position of?");
 var exactPositionInput = Console.ReadLine();
+Console.WriteLine("What letters do you know is not its position?");
+var exactNotPositionInput = Console.ReadLine();
 
 var lettersNotInWord = !string.IsNullOrEmpty(lettersNotInWordInput) ? lettersNotInWordInput.ToCharArray() : Array.Empty<char>();
 var lettersInWord = !string.IsNullOrEmpty(lettersInWordInput) ? lettersInWordInput.ToCharArray() : Array.Empty<char>();
 var exactPosition = !string.IsNullOrEmpty(exactPositionInput) ? exactPositionInput.ToCharArray() : Array.Empty<char>();
+var exactNotPosition = !string.IsNullOrEmpty(exactNotPositionInput) ? exactNotPositionInput.ToCharArray() : Array.Empty<char>();
 
 wordsList = lettersInWord.Aggregate(wordsList, (current, letterInWord) => current.Where(w => w.Contains(letterInWord)).ToArray());
 wordsList = lettersNotInWord.Aggregate(wordsList, (current, letterNotInWord) => current.Where(w => !w.Contains(letterNotInWord)).ToArray());
@@ -21,6 +24,13 @@ foreach (var exactPositionChar in exactPosition)
     if (char.IsLetter(exactPositionChar))
         wordsList = wordsList.Where(w => w.IndexOf(exactPositionChar) == index).ToArray();
     index++;
+}
+var index2 = 0;
+foreach (var exactNotPositionChar in exactNotPosition)
+{ 
+    if (char.IsLetter(exactNotPositionChar))
+        wordsList = wordsList.Where(w => w.IndexOf(exactNotPositionChar) != index2).ToArray();
+    index2++;
 }
 Console.WriteLine("Suggestions: ");
 foreach (var word in wordsList)
